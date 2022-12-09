@@ -19,22 +19,23 @@ private fun part1(input: List<String>): Int = input
 
         val edges = 2 * width + 2 * (height - 2)
 
-        edges + forest.indices.toList().filterNot { i ->
-            i < width || i >= treeCount - width || i % width == 0 || i % width == width - 1
-        }.map { index ->
-            val treeHeight = forest[index]
-            val currentRow = index / width
-            val currentColumn = index % width
+        edges + forest.indices
+            .toList()
+            .filterNot { i -> i < width || i >= treeCount - width || i % width == 0 || i % width == width - 1 }
+            .map { index ->
+                val treeHeight = forest[index]
+                val currentRow = index / width
+                val currentColumn = index % width
 
-            val visible = (0 until currentRow).map { row -> forest[row * width + currentColumn] }.all { h -> h < treeHeight } ||
-                ((currentRow + 1) until height).map { row -> forest[row * width + currentColumn] }.all { h -> h < treeHeight } ||
-                (0 until currentColumn).map { column -> forest[currentRow * width + column] }.all { h -> h < treeHeight } ||
-                ((currentColumn + 1) until width).map { column -> forest[currentRow * width + column] }.all { h -> h < treeHeight }
+                val visible = (0 until currentRow).map { row -> forest[row * width + currentColumn] }.all { h -> h < treeHeight } ||
+                    ((currentRow + 1) until height).map { row -> forest[row * width + currentColumn] }.all { h -> h < treeHeight } ||
+                    (0 until currentColumn).map { column -> forest[currentRow * width + column] }.all { h -> h < treeHeight } ||
+                    ((currentColumn + 1) until width).map { column -> forest[currentRow * width + column] }.all { h -> h < treeHeight }
 
-            visible
-        }.count { visible ->
-            visible
-        }
+                visible
+            }.count { visible ->
+                visible
+            }
     }
 private fun part2(input: List<String>): Int = input
     .flatMap { l -> l.toList().map { c -> c.digitToInt() } }
