@@ -1,6 +1,7 @@
 package dev.siller.aoc2022
 
 import java.io.File
+import java.util.Optional
 
 private const val AOC_YEAR = 2022
 
@@ -10,7 +11,7 @@ private enum class ResultStatus {
 }
 
 @Suppress("LongParameterList")
-fun <R> aocTaskWithExample(
+fun <R : Any> aocTaskWithExample(
     day: Int,
     part1: ((List<String>) -> R)? = null,
     part2: ((List<String>) -> R)? = null,
@@ -18,7 +19,7 @@ fun <R> aocTaskWithExample(
     expectedOutputPart1: R? = null,
     expectedOutputPart2: R? = null,
     inputFile: String = "input/${AOC_YEAR}_day_${day.toString().padStart(2, '0')}.txt"
-) = aocTaskWithExamples(
+): Pair<Optional<R>, Optional<R>> = aocTaskWithExamples(
     day,
     part1,
     part2,
@@ -29,7 +30,7 @@ fun <R> aocTaskWithExample(
 )
 
 @Suppress("LongParameterList", "ReturnCount")
-fun <R> aocTaskWithExamples(
+fun <R : Any> aocTaskWithExamples(
     day: Int,
     part1: ((List<String>) -> R)? = null,
     part2: ((List<String>) -> R)? = null,
@@ -37,41 +38,43 @@ fun <R> aocTaskWithExamples(
     expectedOutputPart1: List<R> = emptyList(),
     expectedOutputPart2: List<R> = emptyList(),
     input: String = "input/2022_day_${day.toString().padStart(2, '0')}.txt"
-) {
+): Pair<Optional<R>, Optional<R>> {
     println("Day ${day.toString().padStart(2, '0')} of Advent of Code $AOC_YEAR")
     println("=============================")
 
     if (part1 == null) {
         println("No solution for part 1, yet!")
-        return
+        return Pair(Optional.empty(), Optional.empty())
     }
 
-    val part1status = runPart(1, input, part1, exampleInput, expectedOutputPart1)
+    val part1result = runPart(1, input, part1, exampleInput, expectedOutputPart1)
 
-    if (!part1status) {
-        return
+    if (part1result.isEmpty) {
+        return Pair(Optional.empty(), Optional.empty())
     }
 
     if (part2 == null) {
         println("No solution for part 2, yet!")
-        return
+        return Pair(part1result, Optional.empty())
     }
 
-    val part2status = runPart(2, input, part2, exampleInput, expectedOutputPart2)
+    val part2result = runPart(2, input, part2, exampleInput, expectedOutputPart2)
 
-    if (part2status) {
+    if (part2result.isPresent) {
         println("[DONE] :-)")
     }
+
+    return Pair(part1result, part2result)
 }
 
 @Suppress("ReturnCount")
-private fun <R> runPart(
+private fun <R : Any> runPart(
     partNumber: Int,
     input: String,
     part: (List<String>) -> R,
     exampleInput: List<String>,
     expectedOutput: List<R>
-): Boolean {
+): Optional<R> {
     val states = exampleInput.mapIndexed { index, i ->
         println("Running Part $partNumber for example ${index + 1} of ${exampleInput.size}:")
 
@@ -94,13 +97,13 @@ private fun <R> runPart(
 
     if (states.any { rs -> rs == ResultStatus.ERROR }) {
         println("There were some incorrect results running the examples!")
-        return false
+        return Optional.empty()
     }
 
     if (!File(input).run { exists() && canRead() }) {
         println("Input file $input does not exist or is not readable!")
         println("Did you forget to download your puzzle input?")
-        return false
+        return Optional.empty()
     }
 
     println("Running Part $partNumber with puzzle input ...")
@@ -109,5 +112,5 @@ private fun <R> runPart(
     println("Part $partNumber result is: $partResult")
     println("=============================")
 
-    return true
+    return Optional.of(partResult)
 }

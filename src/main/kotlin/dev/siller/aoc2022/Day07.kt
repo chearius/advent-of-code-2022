@@ -32,7 +32,7 @@ private interface FSItem {
     val size: Int
 }
 
-private class FSFile(override val name: String, override val parent: FSDir?, override val size: Int) : FSItem {
+private data class FSFile(override val name: String, override val parent: FSDir?, override val size: Int) : FSItem {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is FSFile) return false
@@ -51,12 +51,10 @@ private class FSFile(override val name: String, override val parent: FSDir?, ove
         return result
     }
 
-    override fun toString(): String {
-        return "FSFile(name='$name', size=$size)"
-    }
+    override fun toString(): String = "FSFile(name='$name', size=$size)"
 }
 
-private data class FSDir(
+private class FSDir(
     override val name: String,
     override val parent: FSDir?,
     val items: MutableSet<FSItem> = mutableSetOf()
@@ -82,19 +80,17 @@ private data class FSDir(
         return result
     }
 
-    override fun toString(): String {
-        return "FSDir(name='$name', items=$items)"
-    }
+    override fun toString(): String = "FSDir(name='$name', items=$items)"
 }
 
-private const val TOTAL_DISK_SIZE = 70000000
+private const val TOTAL_DISK_SIZE = 70_000_000
 
-private const val FREE_SPACE_NEEDED = 30000000
+private const val FREE_SPACE_NEEDED = 30_000_000
 
 private fun part1(input: List<String>): Int = getFileSystem(input)
     .flatten()
     .map(FSDir::size)
-    .filter { s -> s < 100000 }
+    .filter { s -> s < 100_000 }
     .sum()
 
 private fun part2(input: List<String>): Int = getFileSystem(input).let { rootDir ->
@@ -119,7 +115,8 @@ private fun getFileSystem(input: List<String>): FSDir {
             line.matches("\\$ cd .+".toRegex()) ->
                 currentDir = currentDir.items
                     .filterIsInstance(FSDir::class.java)
-                    .find { d -> d.name == line.substringAfter("cd ") } ?: error("Unknown dir to cd")
+                    .find { d -> d.name == line.substringAfter("cd ") }
+                    ?: error("Unknown dir to cd")
             line == "$ ls" -> {}
             line.matches("dir .+".toRegex()) ->
                 currentDir.items += FSDir(line.substringAfter(' '), currentDir)
@@ -132,11 +129,15 @@ private fun getFileSystem(input: List<String>): FSDir {
     return rootDir
 }
 
-fun main() = aocTaskWithExample(
+fun aocDay07() = aocTaskWithExample(
     day = 7,
     part1 = ::part1,
     part2 = ::part2,
     exampleInput = example,
-    expectedOutputPart1 = 95437,
-    expectedOutputPart2 = 24933642
+    expectedOutputPart1 = 95_437,
+    expectedOutputPart2 = 24_933_642
 )
+
+fun main() {
+    aocDay07()
+}

@@ -25,7 +25,7 @@ private fun getStartOfMessagePosition(input: List<String>, markerLength: Int) = 
         startOfData
     }
 
-fun main() = aocTaskWithExamples(
+fun aocDay06() = aocTaskWithExamples(
     day = 6,
     part1 = ::part1,
     part2 = ::part2,
@@ -33,3 +33,7 @@ fun main() = aocTaskWithExamples(
     expectedOutputPart1 = listOf(7, 5, 6, 10, 11),
     expectedOutputPart2 = listOf(19, 23, 23, 29, 26)
 )
+
+fun main() {
+    aocDay06()
+}

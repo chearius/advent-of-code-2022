@@ -11,12 +11,12 @@ private val example = """
 
 private fun part1(input: List<String>): Int = getRanges(input)
     .count { (r1, r2) ->
-        (r1.first <= r2.first && r1.last >= r2.last) || (r2.first <= r1.first && r2.last >= r1.last)
+        r1.first <= r2.first && r1.last >= r2.last || r2.first <= r1.first && r2.last >= r1.last
     }
 
 private fun part2(input: List<String>): Int = getRanges(input)
     .count { (r1, r2) ->
-        (r1.first <= r2.first && r1.last >= r2.first) || (r2.first <= r1.first && r2.last >= r1.first)
+        r1.first <= r2.first && r1.last >= r2.first || r2.first <= r1.first && r2.last >= r1.first
     }
 
 private fun getRanges(input: List<String>) = input
@@ -27,7 +27,7 @@ private fun getRanges(input: List<String>) = input
         r1 to r2
     }
 
-fun main() = aocTaskWithExample(
+fun aocDay04() = aocTaskWithExample(
     day = 4,
     part1 = ::part1,
     part2 = ::part2,
@@ -35,3 +35,7 @@ fun main() = aocTaskWithExample(
     expectedOutputPart1 = 2,
     expectedOutputPart2 = 4
 )
+
+fun main() {
+    aocDay04()
+}

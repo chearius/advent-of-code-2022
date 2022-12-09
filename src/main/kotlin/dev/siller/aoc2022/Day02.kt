@@ -14,8 +14,8 @@ private const val LOSS = 0
 
 private fun part1(input: List<String>): Int = input
     .map {
-        val opponent = (it[0] - 'A') + 1
-        val me = (it[2] - 'X') + 1
+        val opponent = it[0] - 'A' + 1
+        val me = it[2] - 'X' + 1
 
         me + when (me - opponent) {
             1, -2 -> WIN
@@ -28,7 +28,7 @@ private fun part1(input: List<String>): Int = input
 
 private fun part2(input: List<String>): Int = input
     .map {
-        val opponent = (it[0] - 'A') + 1
+        val opponent = it[0] - 'A' + 1
         val outcome = (it[2] - 'X') * 3
 
         outcome + when (outcome) {
@@ -40,7 +40,7 @@ private fun part2(input: List<String>): Int = input
     }
     .sum()
 
-fun main() = aocTaskWithExample(
+fun aocDay02() = aocTaskWithExample(
     day = 2,
     part1 = ::part1,
     part2 = ::part2,
@@ -48,3 +48,7 @@ fun main() = aocTaskWithExample(
     expectedOutputPart1 = 15,
     expectedOutputPart2 = 12
 )
+
+fun main() {
+    aocDay02()
+}

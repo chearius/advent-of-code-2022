@@ -39,11 +39,15 @@ private fun calculateCaloriesPerElf(input: List<String>) =
         l.sum()
     }
 
-fun main() = aocTaskWithExample(
+fun aocDay01() = aocTaskWithExample(
     day = 1,
     part1 = ::part1,
     part2 = ::part2,
     exampleInput = example,
-    expectedOutputPart1 = 24000,
-    expectedOutputPart2 = 45000
+    expectedOutputPart1 = 24_000,
+    expectedOutputPart2 = 45_000
 )
+
+fun main() {
+    aocDay01()
+}

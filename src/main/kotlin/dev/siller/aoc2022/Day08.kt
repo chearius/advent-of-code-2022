@@ -27,13 +27,23 @@ private fun part1(input: List<String>): Int = input
                 val currentRow = index / width
                 val currentColumn = index % width
 
-                val visible = (0 until currentRow).map { row -> forest[row * width + currentColumn] }.all { h -> h < treeHeight } ||
-                    ((currentRow + 1) until height).map { row -> forest[row * width + currentColumn] }.all { h -> h < treeHeight } ||
-                    (0 until currentColumn).map { column -> forest[currentRow * width + column] }.all { h -> h < treeHeight } ||
-                    ((currentColumn + 1) until width).map { column -> forest[currentRow * width + column] }.all { h -> h < treeHeight }
+                val visible =
+                    (0 until currentRow)
+                        .map { row -> forest[row * width + currentColumn] }
+                        .all { h -> h < treeHeight } ||
+                        (currentRow + 1 until height)
+                            .map { row -> forest[row * width + currentColumn] }
+                            .all { h -> h < treeHeight } ||
+                        (0 until currentColumn)
+                            .map { column -> forest[currentRow * width + column] }
+                            .all { h -> h < treeHeight } ||
+                        (currentColumn + 1 until width)
+                            .map { column -> forest[currentRow * width + column] }
+                            .all { h -> h < treeHeight }
 
                 visible
-            }.count { visible ->
+            }
+            .count { visible ->
                 visible
             }
     }
@@ -52,26 +62,31 @@ private fun part2(input: List<String>): Int = input
                 val currentRow = index / width
                 val currentColumn = index % width
 
-                val up = currentRow - max(0,
+                val up = currentRow - max(
+                    0,
                     (0 until currentRow)
                         .map { row -> forest[row * width + currentColumn] }
-                        .indexOfLast { h -> h >= treeHeight })
-                val down = height - currentRow -1 -max(0,
-                    ((currentRow + 1) until height)
+                        .indexOfLast { h -> h >= treeHeight }
+                )
+                val down = height - currentRow - 1 - max(
+                    0,
+                    (currentRow + 1 until height)
                         .reversed()
                         .map { row -> forest[row * width + currentColumn] }
-                        .indexOfLast { h -> h >= treeHeight  }
+                        .indexOfLast { h -> h >= treeHeight }
                 )
-                val left = currentColumn - max(0,
+                val left = currentColumn - max(
+                    0,
                     (0 until currentColumn)
                         .map { column -> forest[currentRow * width + column] }
                         .indexOfLast { h -> h >= treeHeight }
                 )
-                val right = width - currentColumn - 1 - max(0,
-                    ((currentColumn + 1) until width)
+                val right = width - currentColumn - 1 - max(
+                    0,
+                    (currentColumn + 1 until width)
                         .reversed()
                         .map { column -> forest[currentRow * width + column] }
-                        .indexOfLast { h -> h >= treeHeight  }
+                        .indexOfLast { h -> h >= treeHeight }
                 )
 
                 up * left * down * right
@@ -79,7 +94,7 @@ private fun part2(input: List<String>): Int = input
             .max()
     }
 
-fun main() = aocTaskWithExample(
+fun aocDay08() = aocTaskWithExample(
     day = 8,
     part1 = ::part1,
     part2 = ::part2,
@@ -87,3 +102,7 @@ fun main() = aocTaskWithExample(
     expectedOutputPart1 = 21,
     expectedOutputPart2 = 8
 )
+
+fun main() {
+    aocDay08()
+}

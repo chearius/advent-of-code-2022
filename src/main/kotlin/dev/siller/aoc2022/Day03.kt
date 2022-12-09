@@ -17,7 +17,8 @@ private fun part1(input: List<String>): Int = input
 
         comp1.intersect(comp2)
     }
-    .flatten().sumOf { c ->
+    .flatten()
+    .sumOf { c ->
         if (c in 'a'..'z') {
             c - 'a' + 1
         } else {
@@ -30,7 +31,8 @@ private fun part2(input: List<String>): Int = input
     .chunked(3)
     .map { g -> g.map { l -> l.toSet() } }
     .map { g -> g[0].intersect(g[1]).intersect(g[2]) }
-    .flatten().sumOf { b ->
+    .flatten()
+    .sumOf { b ->
         if (b in 'a'..'z') {
             b - 'a' + 1
         } else {
@@ -38,7 +40,7 @@ private fun part2(input: List<String>): Int = input
         }
     }
 
-fun main() = aocTaskWithExample(
+fun aocDay03() = aocTaskWithExample(
     day = 3,
     part1 = ::part1,
     part2 = ::part2,
@@ -46,3 +48,7 @@ fun main() = aocTaskWithExample(
     expectedOutputPart1 = 157,
     expectedOutputPart2 = 70
 )
+
+fun main() {
+    aocDay03()
+}

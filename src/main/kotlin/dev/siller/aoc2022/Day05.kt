@@ -19,7 +19,7 @@ private fun part1(input: List<String>): String = getStacks(input).let { stacks -
         repeat(i.count) {
             val e = stacks.getOrDefault(i.from, emptyList()).takeLast(1)
             stacks[i.from] = stacks.getOrDefault(i.from, emptyList()).dropLast(1)
-            stacks[i.to] = (stacks.getOrDefault(i.to, emptyList()) + e)
+            stacks[i.to] = stacks.getOrDefault(i.to, emptyList()) + e
         }
     }
 
@@ -30,7 +30,7 @@ private fun part2(input: List<String>): String = getStacks(input).let { stacks -
     getInstructions(input).forEach { i ->
         val e = stacks.getOrDefault(i.from, emptyList()).takeLast(i.count)
         stacks[i.from] = stacks.getOrDefault(i.from, emptyList()).dropLast(i.count)
-        stacks[i.to] = (stacks.getOrDefault(i.to, emptyList()) + e)
+        stacks[i.to] = stacks.getOrDefault(i.to, emptyList()) + e
     }
 
     stacks.mapValues { (_, v) -> v.last() }.toSortedMap().values.joinToString("")
@@ -56,7 +56,7 @@ private fun getInstructions(input: List<String>) = input
         Instruction(count, from, to)
     }
 
-fun main() = aocTaskWithExample(
+fun aocDay05() = aocTaskWithExample(
     day = 5,
     part1 = ::part1,
     part2 = ::part2,
@@ -64,3 +64,7 @@ fun main() = aocTaskWithExample(
     expectedOutputPart1 = "CMZ",
     expectedOutputPart2 = "MCD"
 )
+
+fun main() {
+    aocDay05()
+}

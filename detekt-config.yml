@@ -1,0 +1,6 @@
+comments:
+    UndocumentedPublicFunction:
+        active: false
+style:
+    MagicNumber:
+        active: false

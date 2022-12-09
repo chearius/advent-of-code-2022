@@ -3,16 +3,18 @@
 ## Usage of the template for new / daily problem statements
 
 1. Copy `DayTemplate.kt` to `DayXX.kt`.
-2. Update the `day` parameter of the `aocTaskWithExample` function call.  
-3. Paste inline example to `val example`, in case of multiple examples, use `listOf()` (then change the
+2. Replace `XX` in the `accDayXX` function name with current day, adjust function call in `main` function.
+3. Update the `day` parameter of the `aocTaskWithExample` function call.
+4. Paste inline example to `val example`, in case of multiple examples, use `listOf()` (then change the
    function call from `aocTaskWithExample` to `aocTaskWithExamples` .
-4. Adjust expected output of the first part from text (parameter `expectedOutputPart1` of functions `aocTaskWithExample`
+5. Adjust expected output of the first part from text (parameter `expectedOutputPart1` of functions `aocTaskWithExample`
    and `aocTaskWithExamples`); use `listOf()` in case of multiple examples.
-5. Download the puzzle input to file `input/2022_day_XX.txt`.
-6. Solve the first part of the problem statement in the function `private fun part1(input: List<String>)`.
-7. Run the main function and check the output. The examples are tested before using the puzzle input.
-8. Solve the second part of the problem statement in the function `private fun part2(input: List<String>)`.
-9. Uncomment the reference to the function `part2` in the function call `aocTaskWithExample` or `aocTaskWithExamples`. 
+6. Download the puzzle input to file `input/2022_day_XX.txt`.
+7. Solve the first part of the problem statement in the function `private fun part1(input: List<String>)`.
+8. Run the main function and check the output. The examples are tested before using the puzzle input.
+9. Solve the second part of the problem statement in the function `private fun part2(input: List<String>)`.
+10. Uncomment the reference to the function `part2` in the function call `aocTaskWithExample` or `aocTaskWithExamples`.
+11. Add new test case in `Acc2022Tests`
   
 ## License
 

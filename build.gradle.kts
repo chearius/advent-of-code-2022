@@ -69,9 +69,14 @@ spotless {
     }
 }
 
+detekt {
+    allRules = true
+    config = files("detekt-config.yml")
+}
+
 tasks.withType<Detekt> {
     jvmTarget = "18"
-    ignoreFailures = true
+    ignoreFailures = false
 
     reports {
         html.required.set(true)
