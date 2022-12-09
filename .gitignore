@@ -1,0 +1,12 @@
+*.class
+*.log
+*.jar
+hs_err_pid*
+.idea/
+out/
+.idea_modules/
+.gradle
+**/build/
+!src/**/build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
