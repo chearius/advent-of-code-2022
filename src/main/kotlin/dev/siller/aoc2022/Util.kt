@@ -97,6 +97,12 @@ private fun <R> runPart(
         return false
     }
 
+    if (!File(input).run { exists() && canRead() }) {
+        println("Input file $input does not exist or is not readable!")
+        println("Did you forget to download your puzzle input?")
+        return false
+    }
+
     println("Running Part $partNumber with puzzle input ...")
     val partResult = part(File(input).readLines())
 
