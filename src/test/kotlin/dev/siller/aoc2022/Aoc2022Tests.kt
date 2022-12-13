@@ -101,7 +101,7 @@ internal class Aoc2022Tests {
         assert(resultPart1.isPresent)
         assertEquals(14_160, resultPart1.get())
         assert(resultPart2.isPresent)
-        assertEquals(0, resultPart2.get())
+        assertEquals(245, resultPart2.get())
     }
 
     @Test
@@ -122,5 +122,15 @@ internal class Aoc2022Tests {
         assertEquals(456, resultPart1.get())
         assert(resultPart2.isPresent)
         assertEquals(454, resultPart2.get())
+    }
+
+    @Test
+    fun `Run tests for Day 13`() {
+        val (resultPart1, resultPart2) = aocDay13()
+
+        assert(resultPart1.isPresent)
+        assertEquals(5_330, resultPart1.get())
+        assert(resultPart2.isPresent)
+        assertEquals(27_648, resultPart2.get())
     }
 }
